@@ -415,12 +415,61 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="./static/images/fig1_modified.png" alt="Stylus overview: content mel-spectrogram + style mel-spectrogram → stylized output via Stable Diffusion" height="100%">
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Stylus</span> transfers the timbral style of a reference audio onto
-        a content track — entirely training-free — by repurposing Stable Diffusion on
-        mel-spectrograms.
+      <img src="./static/images/fig1_modified.png" alt="Stylus pipeline overview" style="width:100%;">
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        <b>Figure 1.</b> Overview of the Stylus pipeline.
+        Given a content audio and a style reference audio, both are converted to
+        mel-spectrograms and fed into a frozen Stable Diffusion backbone via DDIM inversion.
+        Style keys and values are extracted from the style path and injected into the
+        content denoising path using an attention-based feature swap (StyleID).
+        A CFG-inspired guidance term with scale α amplifies the style direction while
+        a query-preservation weight γ retains the melodic structure of the content.
+        The generated mel-spectrogram is converted back to a waveform using
+        phase-preserving ISTFT reconstruction, which reuses the content phase to
+        eliminate metallic artifacts common in iterative phase estimation.
       </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <div class="content has-text-justified">
+          <p>
+            Stylus repurposes a <b>pretrained image diffusion model</b> (Stable Diffusion v1.5)
+            for music style transfer by treating mel-spectrograms as structured time–frequency images.
+            The key insight is that visual spatial priors naturally disentangle
+            <i>musical structure</i> (analogous to image geometry) from
+            <i>timbre</i> (analogous to texture).
+          </p>
+          <p>
+            The pipeline consists of three stages:
+          </p>
+          <ol>
+            <li>
+              <b>DDIM Inversion.</b> Both the content and style mel-spectrograms are inverted
+              into the diffusion latent space without any training, yielding content latent
+              <i>z<sub>c</sub></i> and style latent <i>z<sub>s</sub></i>.
+            </li>
+            <li>
+              <b>Attention-based Style Injection.</b> During denoising, the self-attention
+              keys and values from the style path are substituted into the content path
+              (StyleID). The query from the content path is preserved with weight
+              γ to anchor the melodic layout, while the guidance scale α amplifies
+              the stylistic displacement in feature space (CFG-inspired guidance).
+            </li>
+            <li>
+              <b>Phase-Preserving Reconstruction.</b> The denoised mel-spectrogram magnitude
+              is combined with the original content phase and converted back to a waveform
+              via ISTFT, avoiding the metallic artifacts of Griffin-Lim iterative estimation.
+            </li>
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -429,8 +478,13 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="./static/images/music_fig2.png" alt="Stylus overview: content mel-spectrogram + style mel-spectrogram → stylized output via Stable Diffusion" height="100%">
-      <h2 class="subtitle has-text-centered">
+      <img src="./static/images/music_fig2.png" alt="Stylus qualitative results and multi-style interpolation" style="width:100%;">
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        <b>Figure 2.</b> Qualitative comparison of stylized mel-spectrograms.
+        Each row shows a content–style pair and the corresponding outputs from
+        Stylus (ours), MusicTI, and MusicGen-melody.
+        Stylus produces spectrograms that closely match the timbral texture of the style
+        reference while preserving the rhythmic and melodic structure of the content.
       </h2>
     </div>
   </div>
@@ -447,9 +501,15 @@
 
         <div class="content has-text-justified">
           <p>
-            By linearly mixing the key/value features of two style references with a scalar
-            β ∈ [0, 1], Stylus smoothly interpolates between timbres — no retraining or
-            fine-tuning required. Use the slider below to explore the β sweep.
+            Stylus extends naturally to <b>multi-style interpolation</b> by linearly blending
+            the key/value features of two style references.
+            Given style A and style B, the mixed style features are computed as
+            <i>KV<sub>mix</sub> = (1 − β) · KV<sub>A</sub> + β · KV<sub>B</sub></i>,
+            where β ∈ [0, 1] controls the contribution of each style.
+            No retraining or fine-tuning is required — the interpolation operates
+            entirely in the attention feature space of the frozen diffusion backbone.
+            As β increases from 0 to 1, the output timbre smoothly transitions from
+            Style A to Style B while the melodic content of the source track is preserved throughout.
           </p>
         </div>
 
