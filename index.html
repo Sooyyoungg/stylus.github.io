@@ -256,15 +256,6 @@
       <img src="./static/images/fig1_modified.png" alt="Stylus pipeline overview" style="width:100%;">
       <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
         <b>Figure 1.</b> Overview of the Stylus pipeline.
-        Given a content audio and a style reference audio, both are converted to
-        mel-spectrograms and fed into a frozen Stable Diffusion backbone via DDIM inversion.
-        Style keys and values are extracted from the style path and injected into the
-        content denoising path using an attention-based feature swap (StyleID).
-        A CFG-inspired guidance term with scale α amplifies the style direction while
-        a query-preservation weight γ retains the melodic structure of the content.
-        The generated mel-spectrogram is converted back to a waveform using
-        phase-preserving ISTFT reconstruction, which reuses the content phase to
-        eliminate metallic artifacts common in iterative phase estimation.
       </h2>
     </div>
   </div>
