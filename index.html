@@ -141,7 +141,28 @@
 </section>
 
 
+
+
+
+<!-- ===== OVERVIEW ===== -->
 <section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Stylus</b> transfers the timbre of a reference audio onto a content piece while preserving
+            its melody — with no training, text prompts, or fine-tuning required.
+            It repurposes Stable Diffusion on mel-spectrograms, exploiting the model's built-in ability
+            to disentangle structure (melody) from texture (timbre) without any audio-specific training.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
   <div class="container is-max-desktop">
     <!-- Audio Samples -->
     <div class="columns is-centered has-text-centered">
@@ -224,35 +245,6 @@
     <!--/ Audio Examples. -->
   </div>
 </section>
-
-
-<!-- ===== OVERVIEW ===== -->
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Overview</h2>
-        <div class="content has-text-justified">
-          <p>
-            Have a piece of music you like, and a sound you want it to have?
-            <b>Stylus</b> takes two audio clips — a <b>content</b> track (the melody you want to keep)
-            and a <b>style</b> track (the instrument or timbre you want) — and outputs a new version
-            that keeps the original melody but sounds like it was played with the style reference's instrument.
-          </p>
-          <p>
-            <b>No training. No text prompts. No fine-tuning.</b> Just two audio clips in, one styled audio out.
-          </p>
-          <p>
-            Under the hood, Stylus converts both audio clips into mel-spectrograms (time–frequency images)
-            and passes them through a pretrained image diffusion model (Stable Diffusion v1.5).
-            The model's built-in ability to separate image structure from texture naturally maps onto
-            separating musical structure (melody/rhythm) from timbre —
-            giving Stylus its style transfer capability entirely for free, with no task-specific training.
-          </p>
-        </div>
-      </div>
-    </div>
 
     <!-- Novel Contributions -->
     <div class="columns is-centered has-text-centered" style="margin-top: 2.5rem;">
