@@ -7,7 +7,6 @@
   <meta name="keywords" content="Stylus, music style transfer, mel-spectrogram, stable diffusion, StyleID, training-free">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Stylus: Repurposing Stable Diffusion for Training-Free Music Style Transfer</title>
-  
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -27,7 +26,7 @@
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
   <style>
-    .audio-demo-section { margin-top: 2rem; }
+    .audio-demo-section { margin-top: 1.5rem; }
     .audio-group { margin-bottom: 0.5rem; }
     .audio-row {
       display: flex;
@@ -49,15 +48,18 @@
       margin-bottom: 6px;
       color: #363636;
     }
-    .audio-column audio {
-      width: 100%;
-    }
+    .audio-column audio { width: 100%; }
     .audio-case-label {
       font-weight: bold;
       font-size: 0.9rem;
       color: #888;
       text-align: left;
       margin-bottom: 6px;
+    }
+    .results-subsection {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
     }
     @media (max-width: 600px) {
       .audio-column { flex: 1 1 100%; max-width: 100%; }
@@ -77,15 +79,14 @@
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="https://arxiv.org/abs/2411.15913">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
+        <span class="icon"><i class="fas fa-home"></i></span>
       </a>
     </div>
   </div>
 </nav>
 
 
+<!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
@@ -94,67 +95,44 @@
           <h1 class="title is-1 publication-title">Stylus: Repurposing Stable Diffusion for Training-Free Music Style Transfer on Mel-Spectrograms</h1>
           <p class="subtitle is-4" style="margin-top: 0.5rem; margin-bottom: 1rem;">ICIP 2026</p>
           <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              Heehwan Wang<sup>1</sup>,</span>
-            <span class="author-block">
-              Joonwoo Kwon<sup>2</sup>,</span>
-            <span class="author-block">
-              Sooyoung Kim<sup>3</sup>,
-            </span><br>
-            <span class="author-block">
-              Jungwoo Seo<sup>1</sup>,
-            </span>
-            <span class="author-block">
-              Shinjae Yoo<sup>4</sup>,
-            </span>
-            <span class="author-block">
-              Yuewei Lin<sup>4</sup>,
-            </span>
-            <span class="author-block">
-              Jiook Cha<sup>1</sup>
-            </span>
+            <span class="author-block">Heehwan Wang<sup>1</sup>,</span>
+            <span class="author-block">Joonwoo Kwon<sup>2</sup>,</span>
+            <span class="author-block">Sooyoung Kim<sup>3</sup>,</span><br>
+            <span class="author-block">Jungwoo Seo<sup>1</sup>,</span>
+            <span class="author-block">Shinjae Yoo<sup>4</sup>,</span>
+            <span class="author-block">Yuewei Lin<sup>4</sup>,</span>
+            <span class="author-block">Jiook Cha<sup>1</sup></span>
           </div>
-
-          <div class="is-size-8 publication-authors">
-            <span class="author-block"><sup>1</sup>Seoul National University </span><br>
-            <span class="author-block"><sup>2</sup>Michigan State University </span><br>
-            <span class="author-block"><sup>3</sup>Rutgers University </span><br>
-            <span class="author-block"><sup>4</sup>Brookhaven National Laboratory </span>
+          <div class="is-size-8 publication-authors" style="margin-top: 0.5rem;">
+            <span class="author-block"><sup>1</sup>Seoul National University</span><br>
+            <span class="author-block"><sup>2</sup>Michigan State University</span><br>
+            <span class="author-block"><sup>3</sup>Rutgers University</span><br>
+            <span class="author-block"><sup>4</sup>Brookhaven National Laboratory</span>
           </div>
-
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
               <span class="link-block">
                 <a href="https://arxiv.org/pdf/2411.15913"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
                 <a href="https://arxiv.org/abs/2411.15913"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Code Link. -->
               <span class="link-block">
                 <a href="https://github.com/Sooyyoungg/Stylus"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
+                  <span class="icon"><i class="fab fa-github"></i></span>
                   <span>Code</span>
-                  </a>
+                </a>
               </span>
             </div>
-
           </div>
         </div>
       </div>
@@ -162,98 +140,37 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Audio Samples -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Audio Samples</h2>
-        <p class="subtitle is-6" style="margin-bottom: 2rem;">
-          Each row: Content (melody/rhythm) + Style (timbre reference) → Stylus output vs. baselines
-        </p>
 
-        <div class="audio-demo-section">
-
-          <!-- Case 2 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 2 &nbsp;·&nbsp; Relieve → Erhu</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relieve3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/erhu5.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relieve3_stylized_erhu5.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relieve3_erhu.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relieve3_erhu.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 7 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 7 &nbsp;·&nbsp; Color → Fire</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/color9.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/color9_stylized_fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/color9_fire.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/color9_fire.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 11 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 11 &nbsp;·&nbsp; Funny Dance → Heartbeat</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/funny_dance3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/heartbeat2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/funny_dance3_stylized_heartbeat2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/funny_dance3_heartbeat.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/funny_dance3_heartbeat.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 14 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 14 &nbsp;·&nbsp; Village → Clarinet</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/village10.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/clarinet3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/village10_stylized_clarinet3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/village10_clarinet.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/village10_clarinet.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-        </div>
-      </div>
-    </div>
-    <!--/ Audio Examples. -->
-  </div>
-</section>
-
+<!-- ===== OVERVIEW ===== -->
 <section class="section">
   <div class="container is-max-desktop">
 
-    <!-- Overview -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Overview</h2>
         <div class="content has-text-justified">
           <p>
-            <b>Stylus</b> is a <i>training-free</i> music style transfer framework that repurposes
-            a pretrained image diffusion model (Stable Diffusion v1.5) to operate on
-            mel-spectrograms. By interpreting mel-spectrograms as structured time–frequency images,
-            Stylus leverages visual spatial priors to disentangle <i>musical structure</i> (geometry)
-            from <i>timbre</i> (texture) — entirely without task-specific training or fine-tuning.
+            Have a piece of music you like, and a sound you want it to have?
+            <b>Stylus</b> takes two audio clips — a <b>content</b> track (the melody you want to keep)
+            and a <b>style</b> track (the instrument or timbre you want) — and outputs a new version
+            that keeps the original melody but sounds like it was played with the style reference's instrument.
+          </p>
+          <p>
+            <b>No training. No text prompts. No fine-tuning.</b> Just two audio clips in, one styled audio out.
+          </p>
+          <p>
+            Under the hood, Stylus converts both audio clips into mel-spectrograms (time–frequency images)
+            and passes them through a pretrained image diffusion model (Stable Diffusion v1.5).
+            The model's built-in ability to separate image structure from texture naturally maps onto
+            separating musical structure (melody/rhythm) from timbre —
+            giving Stylus its style transfer capability entirely for free, with no task-specific training.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Novel Points -->
-    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+    <!-- Novel Contributions -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2.5rem;">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Novel Contributions</h2>
         <div class="content has-text-justified">
@@ -286,10 +203,8 @@
       </div>
     </div>
 
-    
-
     <!-- Motivation -->
-    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+    <div class="columns is-centered has-text-centered" style="margin-top: 2.5rem;">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Motivation</h2>
         <div class="content has-text-justified">
@@ -321,6 +236,8 @@
   </div>
 </section>
 
+
+<!-- ===== PIPELINE FIGURE ===== -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
@@ -330,6 +247,7 @@
 </section>
 
 
+<!-- ===== METHOD ===== -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -370,240 +288,296 @@
 </section>
 
 
-<section class="hero teaser">
+<!-- ===== RESULTS ===== -->
+<section class="section" style="background: #fafafa;">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <img src="./static/images/music_fig2.png"
-           alt="Stylus qualitative results"
-           style="width:70%; display:block; margin:auto;">
-    </div>
-  </div>
-</section>
-
-  
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Audio Samples -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Audio Samples</h2>
-        <p class="subtitle is-6" style="margin-bottom: 2rem;">
-          Each row: Content (melody/rhythm) + Style (timbre reference) → Stylus output vs. baselines
-        </p>
-
-        <div class="audio-demo-section">
-
-          <!-- Case 1 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 1 &nbsp;·&nbsp; Relieve → Erhu</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relieve5.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/erhu2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relieve5_stylized_erhu2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relieve5_erhu.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relieve5_erhu.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 2 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 2 &nbsp;·&nbsp; Relieve → Erhu</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relieve3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/erhu5.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relieve3_stylized_erhu5.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relieve3_erhu.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relieve3_erhu.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 3 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 3 &nbsp;·&nbsp; Relax → Jaw Harp</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relax10.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/jaw1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relax10_stylized_jaw1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relax10_jaw.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relax10_jaw.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 4 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 4 &nbsp;·&nbsp; Relax → Jaw Harp</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/sad_violin7.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/jaw2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/sad_violin7_stylized_jaw2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/sad_violin7_jaw.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/sad_violin7_jaw.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 5 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 5 &nbsp;·&nbsp; Violin → Cornet</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/violin3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/cornet2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/violin3_stylized_cornet2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/violin3_cornet.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/violin3_cornet.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 6 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 6 &nbsp;·&nbsp; Sad Violin → Cornet</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/sad_violin2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/cornet2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/sad_violin2_stylized_cornet2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/sad_violin2_cornet.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/sad_violin2_cornet.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 7 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 7 &nbsp;·&nbsp; Color → Fire</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/color9.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/color9_stylized_fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/color9_fire.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/color9_fire.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 8 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 8 &nbsp;·&nbsp; Funny Dance → Fire</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/funny_dance1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/funny_dance1_stylized_fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/funny_dance1_fire.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/funny_dance1_fire.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 9 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 9 &nbsp;·&nbsp; Village → Fire</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/village1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/village1_stylized_fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/village1_fire.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/village1_fire.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 10 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 10 &nbsp;·&nbsp; Piano → Fire</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/piano1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/piano1_stylized_fire1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/piano1_fire.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/piano1_fire.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 11 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 11 &nbsp;·&nbsp; Funny Dance → Heartbeat</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/funny_dance3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/heartbeat2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/funny_dance3_stylized_heartbeat2.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/funny_dance3_heartbeat.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/funny_dance3_heartbeat.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 12 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 12 &nbsp;·&nbsp; Relax → Erhu</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relax1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/erhu1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relax1_stylized_erhu1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relax1_erhu.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relax1_erhu.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 13 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 13 &nbsp;·&nbsp; Relax → Clean Glass</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relax1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/cleangalss1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relax1_stylized_cleangalss1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relax1_cleanglass.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relax1_cleanglass.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 14 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 14 &nbsp;·&nbsp; Village → Clarinet</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/village10.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/clarinet3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/village10_stylized_clarinet3.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/village10_clarinet.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/village10_clarinet.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-          <hr style="margin: 1rem 0;">
-
-          <!-- Case 15 -->
-          <div class="audio-group">
-            <p class="audio-case-label">Case 15 &nbsp;·&nbsp; Violin → Accordion</p>
-            <div class="audio-row">
-              <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/violin1.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/accordion10.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/violin1_stylized_accordion10.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/violin1_accordion.wav" type="audio/wav"></audio></div>
-              <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/violin1_accordion.wav" type="audio/wav"></audio></div>
-            </div>
-          </div>
-
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            We evaluate Stylus on a benchmark of <b>13 content tracks × 18 style instruments</b>,
+            comparing against MusicGen-melody (NeurIPS'23) and MusicTI (AAAI'24).
+            Stylus achieves the best content preservation across all metrics while maintaining
+            competitive style fit, and runs faster than both baselines without any task-specific training.
+          </p>
         </div>
       </div>
     </div>
-    <!--/ Audio Examples. -->
+
+    <!-- Qualitative -->
+    <div class="results-subsection">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h3 class="title is-4">Qualitative Comparison</h3>
+          <div class="content has-text-justified">
+            <p>
+              The figure below shows mel-spectrogram outputs for Stylus and baselines side by side.
+              Stylus preserves the content's melodic contour (frequency layout) while faithfully
+              adopting the style's timbral texture, whereas MusicGen collapses fine spectral structure
+              and MusicTI introduces timbral artifacts from per-style optimization.
+            </p>
+          </div>
+          <img src="./static/images/music_fig2.png"
+               alt="Stylus qualitative comparison"
+               style="width:70%; display:block; margin:1.5rem auto;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Audio Samples -->
+    <div class="results-subsection">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width">
+          <h3 class="title is-4">Audio Samples</h3>
+          <p class="subtitle is-6" style="margin-bottom: 2rem;">
+            Content (melody) + Style (timbre reference) → Stylus vs. baselines
+          </p>
+
+          <div class="audio-demo-section">
+
+            <!-- Case 1 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 1 &nbsp;·&nbsp; Relieve → Erhu</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relieve5.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/erhu2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relieve5_stylized_erhu2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relieve5_erhu.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relieve5_erhu.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 2 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 2 &nbsp;·&nbsp; Relieve → Erhu</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relieve3.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/erhu5.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relieve3_stylized_erhu5.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relieve3_erhu.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relieve3_erhu.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 3 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 3 &nbsp;·&nbsp; Relax → Jaw Harp</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relax10.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/jaw1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relax10_stylized_jaw1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relax10_jaw.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relax10_jaw.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 4 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 4 &nbsp;·&nbsp; Sad Violin → Jaw Harp</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/sad_violin7.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/jaw2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/sad_violin7_stylized_jaw2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/sad_violin7_jaw.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/sad_violin7_jaw.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 5 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 5 &nbsp;·&nbsp; Violin → Cornet</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/violin3.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/cornet2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/violin3_stylized_cornet2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/violin3_cornet.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/violin3_cornet.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 6 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 6 &nbsp;·&nbsp; Sad Violin → Cornet</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/sad_violin2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/cornet2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/sad_violin2_stylized_cornet2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/sad_violin2_cornet.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/sad_violin2_cornet.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 7 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 7 &nbsp;·&nbsp; Color → Fire</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/color9.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/color9_stylized_fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/color9_fire.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/color9_fire.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 8 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 8 &nbsp;·&nbsp; Funny Dance → Fire</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/funny_dance1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/funny_dance1_stylized_fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/funny_dance1_fire.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/funny_dance1_fire.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 9 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 9 &nbsp;·&nbsp; Village → Fire</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/village1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/village1_stylized_fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/village1_fire.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/village1_fire.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 10 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 10 &nbsp;·&nbsp; Piano → Fire</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/piano1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/piano1_stylized_fire1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/piano1_fire.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/piano1_fire.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 11 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 11 &nbsp;·&nbsp; Funny Dance → Heartbeat</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/funny_dance3.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/heartbeat2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/funny_dance3_stylized_heartbeat2.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/funny_dance3_heartbeat.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/funny_dance3_heartbeat.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 12 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 12 &nbsp;·&nbsp; Relax → Erhu</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relax1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/erhu1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relax1_stylized_erhu1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relax1_erhu.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relax1_erhu.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 13 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 13 &nbsp;·&nbsp; Relax → Clean Glass</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/relax1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/cleangalss1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/relax1_stylized_cleangalss1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/relax1_cleanglass.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/relax1_cleanglass.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 14 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 14 &nbsp;·&nbsp; Village → Clarinet</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/village10.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/clarinet3.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/village10_stylized_clarinet3.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/village10_clarinet.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/village10_clarinet.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+            <hr style="margin: 1rem 0;">
+
+            <!-- Case 15 -->
+            <div class="audio-group">
+              <p class="audio-case-label">Case 15 &nbsp;·&nbsp; Violin → Accordion</p>
+              <div class="audio-row">
+                <div class="audio-column"><h4>Content</h4><audio controls><source src="./static/audio/orig/content/violin1.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Style</h4><audio controls><source src="./static/audio/orig/timbre/accordion10.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>Stylus (Ours)</h4><audio controls><source src="./static/audio/ours/violin1_stylized_accordion10.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicTI</h4><audio controls><source src="./static/audio/MusicTI/violin1_accordion.wav" type="audio/wav"></audio></div>
+                <div class="audio-column"><h4>MusicGen</h4><audio controls><source src="./static/audio/MusicGen/violin1_accordion.wav" type="audio/wav"></audio></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quantitative -->
+    <div class="results-subsection">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h3 class="title is-4">Quantitative Comparison</h3>
+          <div class="content has-text-justified">
+            <p>
+              CLAP-based content/style scores confirm that Stylus best preserves the input melody
+              while maintaining competitive style alignment. It also runs faster than both baselines
+              without any task-specific training.
+            </p>
+          </div>
+          <div class="has-text-centered" style="margin: 1.5rem 0;">
+            <img src="./static/images/table1.png"
+                 alt="Table 1: CLAP scores, user study, and efficiency"
+                 style="width:100%; max-width:700px;">
+          </div>
+          <div class="content has-text-justified">
+            <p>
+              Audio-domain fidelity metrics (FAD, KLD, Chroma) provide a complementary view.
+              Stylus best preserves harmonic structure, while text-conditioned models tend to
+              collapse spectral integrity during stylization.
+            </p>
+          </div>
+          <div class="has-text-centered" style="margin: 1.5rem 0;">
+            <img src="./static/images/table2.png"
+                 alt="Table 2: FAD, KLD, Chroma fidelity metrics"
+                 style="width:100%; max-width:700px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-  <section class="section">
-  <div class="container is-max-desktop">
 
-    <!-- Multi-style Interpolation. -->
+<!-- ===== MULTI-STYLE INTERPOLATION ===== -->
+<section class="section">
+  <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Multi-Style Interpolation</h2>
-
         <div class="content has-text-justified">
           <p>
             Stylus extends naturally to <b>multi-style interpolation</b> by linearly blending
@@ -619,14 +593,14 @@
             changes monotonically as β varies, demonstrating smooth and controllable timbral blending.
           </p>
         </div>
-
         <div class="has-text-centered" style="margin: 1.5rem 0;">
-          <img src="./static/images/table4.png" alt="Table 4: Multi-style interpolation ablation" style="width:100%; max-width:500px;">
+          <img src="./static/images/table4.png"
+               alt="Table 4: Multi-style interpolation ablation"
+               style="width:100%; max-width:500px;">
           <p class="is-size-7" style="margin-top:0.5rem; color:#888;">
             Style Fit w/ A and Style Fit w/ B across β ∈ {0.1, 0.3, 0.5, 0.7, 0.9}.
           </p>
         </div>
-
         <div class="columns is-vcentered interpolation-panel">
           <div class="column is-3 has-text-centered">
             <p class="title is-6">Style A (β = 0)</p>
@@ -635,9 +609,7 @@
             </audio>
           </div>
           <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
+            <div id="interpolation-image-wrapper">Loading...</div>
             <input class="slider is-fullwidth is-large is-info"
                    id="interpolation-slider"
                    step="1" min="0" max="100" value="0" type="range">
@@ -652,51 +624,12 @@
         <br/>
       </div>
     </div>
-    <!--/ Multi-style Interpolation. -->
-
   </div>
 </section>
 
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Results</h2>
-        <div class="content has-text-justified">
-          <p>
-            We evaluate Stylus on a benchmark of <b>13 content tracks × 18 style instruments</b>,
-            comparing against MusicGen-melody (NeurIPS'23) and MusicTI (AAAI'24).
-            Stylus achieves the best content preservation across all metrics while maintaining
-            competitive style fit, and runs faster than both baselines without any task-specific training.
-          </p>
-        </div>
-        <div class="has-text-centered" style="margin: 1.5rem 0;">
-          <img src="./static/images/table1.png" alt="Table 1: CLAP scores, user study, and efficiency comparison" style="width:100%; max-width:700px;">
-          <p class="is-size-7" style="margin-top:0.5rem; color:#888;">
-            CLAP-based content/style scores, user study ratings (mean±SE), and inference efficiency across baselines.
-          </p>
-        </div>
-        <div class="content has-text-justified">
-          <p>
-            Audio-domain fidelity metrics (FAD, KLD, Chroma) provide a complementary view.
-            Stylus best preserves harmonic structure on content metrics, while
-            text-conditioned models tend to collapse harmonic integrity during stylization.
-          </p>
-        </div>
-        <div class="has-text-centered" style="margin: 1.5rem 0;">
-          <img src="./static/images/table2.png" alt="Table 2: FAD, KLD, Chroma fidelity metrics" style="width:100%; max-width:700px;">
-          <p class="is-size-7" style="margin-top:0.5rem; color:#888;">
-            Audio-domain fidelity (FAD ↓, KLD ↓, Chroma ↑) on content and stylized outputs against all baselines.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
+<!-- ===== USER STUDY ===== -->
+<section class="section" style="background: #fafafa;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -716,9 +649,7 @@
             <a href="https://kwonjoon.info/Stylus/"
                class="external-link button is-normal is-rounded is-dark"
                target="_blank" rel="noopener noreferrer">
-              <span class="icon">
-                <i class="fas fa-headphones"></i>
-              </span>
+              <span class="icon"><i class="fas fa-headphones"></i></span>
               <span>User Study Samples</span>
             </a>
           </div>
@@ -729,6 +660,7 @@
 </section>
 
 
+<!-- ===== BIBTEX ===== -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
@@ -745,8 +677,7 @@
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
-         href="https://arxiv.org/pdf/2411.15913">
+      <a class="icon-link" href="https://arxiv.org/pdf/2411.15913">
         <i class="fas fa-file-pdf"></i>
       </a>
       <a class="icon-link" href="https://github.com/Sooyyoungg/Stylus" class="external-link">
