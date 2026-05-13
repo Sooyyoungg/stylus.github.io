@@ -615,9 +615,15 @@
             entirely in the attention feature space of the frozen diffusion backbone.
             As β increases from 0 to 1, the output timbre smoothly transitions from
             Style A to Style B while the melodic content is preserved throughout.
-            Quantitatively, Style Fit w/ A decreases monotonically from <b>0.153</b> (β = 0.1)
-            to 0.137 (β = 0.9), while Style Fit w/ B increases from 0.100 to <b>0.146</b> —
-            confirming that the blend tracks β in a smooth and predictable manner.
+            The table below quantitatively confirms that the style fit with each reference
+            changes monotonically as β varies, demonstrating smooth and controllable timbral blending.
+          </p>
+        </div>
+
+        <div class="has-text-centered" style="margin: 1.5rem 0;">
+          <img src="./static/images/table4.png" alt="Table 4: Multi-style interpolation ablation" style="width:100%; max-width:500px;">
+          <p class="is-size-7" style="margin-top:0.5rem; color:#888;">
+            Style Fit w/ A and Style Fit w/ B across β ∈ {0.1, 0.3, 0.5, 0.7, 0.9}.
           </p>
         </div>
 
@@ -661,32 +667,27 @@
           <p>
             We evaluate Stylus on a benchmark of <b>13 content tracks × 18 style instruments</b>,
             comparing against MusicGen-melody (NeurIPS'23) and MusicTI (AAAI'24).
-            The qualitative comparison above shows that Stylus produces mel-spectrograms whose
-            timbral texture closely matches the style reference while preserving the rhythmic
-            and melodic structure of the content.
+            Stylus achieves the best content preservation across all metrics while maintaining
+            competitive style fit, and runs faster than both baselines without any task-specific training.
           </p>
-          <p>
-            On CLAP-based metrics, Stylus achieves a content score of <b>0.53</b> —
-            substantially higher than MusicTI (0.40) and MusicGen (0.31) — confirming
-            that the content structure is well preserved after style transfer.
-            For style fit, Stylus reaches an S_Style score of <b>0.13</b>, comparable to
-            MusicTI (0.12) and well above MusicGen (0.01), while MusicTI leads on M_Style (0.26)
-            due to its text-based conditioning on style class names.
+        </div>
+        <div class="has-text-centered" style="margin: 1.5rem 0;">
+          <img src="./static/images/table1.png" alt="Table 1: CLAP scores, user study, and efficiency comparison" style="width:100%; max-width:700px;">
+          <p class="is-size-7" style="margin-top:0.5rem; color:#888;">
+            CLAP-based content/style scores, user study ratings (mean±SE), and inference efficiency across baselines.
           </p>
+        </div>
+        <div class="content has-text-justified">
           <p>
-            Audio-domain fidelity metrics (FAD, KLD, Chroma) confirm this trend.
-            Stylus achieves the lowest content FAD (<b>8.69</b>) and KLD (<b>0.69</b>),
-            indicating superior harmonic fidelity relative to the original content.
-            Text-conditioned Make-An-Audio collapses harmonic integrity during stylization,
-            as reflected by a style Chroma score of only 0.12, while Stylus maintains 0.52–0.53.
+            Audio-domain fidelity metrics (FAD, KLD, Chroma) provide a complementary view.
+            Stylus best preserves harmonic structure on content metrics, while
+            text-conditioned models tend to collapse harmonic integrity during stylization.
           </p>
-          <p>
-            In the user study (2,925 ratings, <i>p</i> &lt; 0.05), Stylus scores
-            <b>4.29 ± 0.08</b> on content preservation versus 2.95 (MusicTI) and 2.73 (MusicGen),
-            and achieves the highest overall score of <b>3.38 ± 0.08</b>.
-            On efficiency, Stylus completes inference in <b>10.16 s</b> — faster than both
-            MusicGen (13.86 s) and MusicTI (11.78 s) — though it uses slightly more GPU memory
-            (18.1 GB vs. 8.7 GB for MusicTI) due to the dual-path diffusion forward pass.
+        </div>
+        <div class="has-text-centered" style="margin: 1.5rem 0;">
+          <img src="./static/images/table2.png" alt="Table 2: FAD, KLD, Chroma fidelity metrics" style="width:100%; max-width:700px;">
+          <p class="is-size-7" style="margin-top:0.5rem; color:#888;">
+            Audio-domain fidelity (FAD ↓, KLD ↓, Chroma ↑) on content and stylized outputs against all baselines.
           </p>
         </div>
       </div>
