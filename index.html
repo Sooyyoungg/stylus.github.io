@@ -377,38 +377,87 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
+
+    <!-- Overview -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3">Overview</h2>
         <div class="content has-text-justified">
           <p>
-            Music style transfer enables personalized music creation by blending the 
-            structure of a source with the stylistic attributes of a reference. While 
-            existing approaches have shown promise, they often struggle to faithfully 
-            capture the fine-grained nuances of audio exemplars under a zero-shot setting, 
-            predominantly relying on coarse text descriptions or requiring computationally 
-            expensive task-specific training. We present \textbf{Stylus}, a \textit{training-free} 
-            framework that reformulates music style transfer as a representation-level 
-            manipulation of Mel-spectrograms, interpreted as structured time--frequency 
-            images. By repurposing pretrained image diffusion models, Stylus leverages 
-            visual spatial priors to disentangle musical structure (geometry) from timbre 
-            (texture). This is achieved via an attention-based inductive bias where 
-            content queries anchor the musical layout while style keys and values carry 
-            stylistic textures. To ensure high fidelity, we introduce a phase-preserving 
-            reconstruction strategy that prioritizes structural stability and eliminates 
-            the metallic artifacts common in iterative phase estimation. Extensive evaluations 
-            against state-of-the-art baselines demonstrate that Stylus achieves a superior 
-            balance of content preservation and stylistic fit. Quantitative metrics, 
-            including FAD, KLD, and Chroma, and a user study with 2,925 ratings confirm 
-            that Stylus significantly outperforms existing methods ($p < 0.05$), achieving 
-            34.1\% higher content preservation and 25.7\% better perceptual quality without 
-            any additional training.
+            <b>Stylus</b> is a <i>training-free</i> music style transfer framework that repurposes
+            a pretrained image diffusion model (Stable Diffusion v1.5) to operate on
+            mel-spectrograms. By interpreting mel-spectrograms as structured time–frequency images,
+            Stylus leverages visual spatial priors to disentangle <i>musical structure</i> (geometry)
+            from <i>timbre</i> (texture) — entirely without task-specific training or fine-tuning.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
+
+    <!-- Novel Points -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Novel Contributions</h2>
+        <div class="content has-text-justified">
+          <ul>
+            <li>
+              <b>Training-free music style transfer</b> via DDIM inversion on mel-spectrograms —
+              no fine-tuning, no text prompts, no task-specific model required.
+            </li>
+            <li>
+              <b>Repurposed image diffusion prior</b> (Stable Diffusion v1.5) that treats
+              mel-spectrograms as time–frequency images, exploiting visual spatial priors
+              to separate structure from texture.
+            </li>
+            <li>
+              <b>CFG-inspired dual guidance</b> with query-preservation weight γ
+              (content structure retention) and guidance scale α (style amplification),
+              enabling fine-grained independent control over content and style fidelity.
+            </li>
+            <li>
+              <b>Phase-preserving ISTFT reconstruction</b> that reuses the content phase,
+              eliminating the metallic artifacts common in Griffin-Lim iterative estimation.
+            </li>
+            <li>
+              <b>Multi-style interpolation</b> by linearly blending key/value attention
+              features of two style references with a single scalar β, enabling smooth
+              timbral transitions without any additional training.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Motivation -->
+    <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Motivation</h2>
+        <div class="content has-text-justified">
+          <ol>
+            <li>
+              <b>Coarse text-based conditioning is insufficient.</b>
+              Existing methods such as MusicGen rely on text descriptions to specify style,
+              but text cannot faithfully capture the fine-grained timbral nuances of a
+              specific audio exemplar (e.g., the exact resonance of a particular erhu recording).
+            </li>
+            <li>
+              <b>Task-specific training is costly and inflexible.</b>
+              Textual inversion–based methods (e.g., MusicTI) require per-style optimization,
+              making them computationally expensive and unable to generalize across new styles
+              without re-training.
+            </li>
+            <li>
+              <b>Powerful image diffusion priors are underexplored for audio.</b>
+              Large-scale image diffusion models encode rich visual structure-texture
+              disentanglement. Mel-spectrograms share analogous structure (time–frequency layout
+              ↔ geometry) and texture (timbre ↔ appearance), making image diffusion models
+              a natural, untapped prior for audio style transfer.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -540,6 +589,45 @@
     </div>
     <!--/ Multi-style Interpolation. -->
 
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            We evaluate Stylus on a benchmark of <b>13 content tracks × 18 style instruments</b>
+            (13,246 stylized samples total), comparing against MusicGen-melody and MusicTI.
+          </p>
+          <ul>
+            <li>
+              <b>User study (2,925 ratings, p &lt; 0.05):</b>
+              Stylus achieves <b>34.1% higher content preservation</b> and
+              <b>25.7% better perceptual quality</b> than the best baseline.
+            </li>
+            <li>
+              <b>Quantitative metrics:</b> Stylus outperforms baselines on FAD, KLD, and
+              Chroma similarity, confirming improvements in both audio fidelity and
+              style-content alignment.
+            </li>
+            <li>
+              <b>Efficiency:</b> Being training-free, Stylus requires no GPU-hours for
+              per-style optimization, with inference time comparable to a single
+              diffusion sampling pass (~50 DDIM steps).
+            </li>
+            <li>
+              <b>Multi-style interpolation:</b> The β-sweep across five values
+              (0.1, 0.3, 0.5, 0.7, 0.9) shows smooth, monotonic timbral transitions
+              while style fit metrics for each endpoint style change in the expected direction.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
