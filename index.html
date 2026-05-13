@@ -329,59 +329,6 @@
 
 <section class="section">
   <div class="container is-max-desktop">
-
-    <!-- Multi-style Interpolation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Multi-Style Interpolation</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            Stylus extends naturally to <b>multi-style interpolation</b> by linearly blending
-            the key/value features of two style references.
-            Given style A and style B, the mixed style features are computed as
-            <i>KV<sub>mix</sub> = (1 − β) · KV<sub>A</sub> + β · KV<sub>B</sub></i>,
-            where β ∈ [0, 1] controls the contribution of each style.
-            No retraining or fine-tuning is required — the interpolation operates
-            entirely in the attention feature space of the frozen diffusion backbone.
-            As β increases from 0 to 1, the output timbre smoothly transitions from
-            Style A to Style B while the melodic content of the source track is preserved throughout.
-          </p>
-        </div>
-
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <p class="title is-6">Style A (β = 0)</p>
-            <audio controls style="width: 100%;">
-              <source src="./static/audio/interp_style_A.wav" type="audio/wav">
-            </audio>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <p class="title is-6">Style B (β = 1)</p>
-            <audio controls style="width: 100%;">
-              <source src="./static/audio/interp_style_B.wav" type="audio/wav">
-            </audio>
-          </div>
-        </div>
-        <br/>
-      </div>
-    </div>
-    <!--/ Multi-style Interpolation. -->
-
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
     <!-- Audio Samples -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
@@ -590,6 +537,58 @@
       </div>
     </div>
     <!--/ Audio Examples. -->
+  </div>
+</section>
+
+  <section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Multi-style Interpolation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Multi-Style Interpolation</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Stylus extends naturally to <b>multi-style interpolation</b> by linearly blending
+            the key/value features of two style references.
+            Given style A and style B, the mixed style features are computed as
+            <i>KV<sub>mix</sub> = (1 − β) · KV<sub>A</sub> + β · KV<sub>B</sub></i>,
+            where β ∈ [0, 1] controls the contribution of each style.
+            No retraining or fine-tuning is required — the interpolation operates
+            entirely in the attention feature space of the frozen diffusion backbone.
+            As β increases from 0 to 1, the output timbre smoothly transitions from
+            Style A to Style B while the melodic content of the source track is preserved throughout.
+          </p>
+        </div>
+
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <p class="title is-6">Style A (β = 0)</p>
+            <audio controls style="width: 100%;">
+              <source src="./static/audio/interp_style_A.wav" type="audio/wav">
+            </audio>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <p class="title is-6">Style B (β = 1)</p>
+            <audio controls style="width: 100%;">
+              <source src="./static/audio/interp_style_B.wav" type="audio/wav">
+            </audio>
+          </div>
+        </div>
+        <br/>
+      </div>
+    </div>
+    <!--/ Multi-style Interpolation. -->
+
   </div>
 </section>
 
